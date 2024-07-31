@@ -9,6 +9,12 @@ const packageJsonPath = path.join(__dirname, 'package.json');
 const buildParamsPath = path.join(__dirname, 'buildParams.json');
 const newPackageJsonPath = path.join(buildFolderPath, 'package.json');
 
+// Check if buildParams.json exists
+if (!fs.existsSync(buildParamsPath)) {
+    console.error('Error: buildParams.json not found. Exiting.');
+    process.exit(1);
+}
+
 // Read the build parameters from buildParams.json
 const buildParams = JSON.parse(fs.readFileSync(buildParamsPath, 'utf-8'));
 const filesToCopy = buildParams.files;
@@ -25,6 +31,9 @@ if (!buildDependencies.includes("next")) {
 if (!scripts.hasOwnProperty('start')) {
     scripts['start'] = 'next start';
 }
+
+// Remove .next from foldersToCopy if present
+foldersToCopy = foldersToCopy.filter(folder => folder !== '.next');
 
 // Remove the build folder if it exists
 if (fs.existsSync(buildFolderPath)) {
