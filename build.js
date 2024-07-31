@@ -9,18 +9,36 @@ const packageJsonPath = path.join(__dirname, 'package.json');
 const buildParamsPath = path.join(__dirname, 'buildParams.json');
 const newPackageJsonPath = path.join(buildFolderPath, 'package.json');
 
-// Check if buildParams.json exists
+// Check if buildParams.json exists, if not, create it with default values
 if (!fs.existsSync(buildParamsPath)) {
-    console.error('Error: buildParams.json not found. Exiting.');
-    process.exit(1);
+    console.log('buildParams.json not found. Creating with default values.');
+    const defaultBuildParams = {
+        scripts: {},
+        folders: [],
+        files: [],
+        dependencies: []
+    };
+    fs.writeFileSync(buildParamsPath, JSON.stringify(defaultBuildParams, null, 2), 'utf-8');
 }
 
-// Read the build parameters from buildParams.json
-const buildParams = JSON.parse(fs.readFileSync(buildParamsPath, 'utf-8'));
-const filesToCopy = buildParams.files;
-const foldersToCopy = buildParams.folders;
-let buildDependencies = buildParams.dependencies;
-let scripts = buildParams.scripts;
+// Read and parse the build parameters from buildParams.json
+let buildParams = {};
+try {
+    buildParams = JSON.parse(fs.readFileSync(buildParamsPath, 'utf-8'));
+} catch (error) {
+    console.error('Error parsing buildParams.json. Using default values.', error.message);
+    buildParams = {
+        scripts: {},
+        folders: [],
+        files: [],
+        dependencies: []
+    };
+}
+// Set default values if not provided
+const filesToCopy = buildParams.files || [];
+let foldersToCopy = buildParams.folders || [];
+let buildDependencies = buildParams.dependencies || [];
+let scripts = buildParams.scripts || {};
 
 // Ensure "next" is included in the build dependencies
 if (!buildDependencies.includes("next")) {
