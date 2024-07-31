@@ -28,7 +28,6 @@ Example parameters:
     "dotenv",
     "express",
     "http-proxy-middleware",
-    "next",
     "sanitize-html",
     "sharp",
     "showdown",
