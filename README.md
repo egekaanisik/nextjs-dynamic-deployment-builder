@@ -37,7 +37,7 @@ Example parameters:
 }
 ```
 
-Please note that even if the JSON attributes are empty, some values are defaulted and added programmatically even if they are not provided. The `start` script can be overridden if needed. A Next.js project can be run without a `public/` directory, so it is not defaulted and should be given as a dependency if you use it.
+Please note that even if the JSON file is empty, some values are defaulted and added programmatically, even if they are not provided. The `start` script can be overridden if needed. A Next.js project can be run without a `public/` directory, so it is not defaulted and should be given as a dependency if you use it.
 
 Default values:
 ```json
