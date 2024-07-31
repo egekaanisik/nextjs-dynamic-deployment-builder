@@ -5,6 +5,8 @@ A Node.js script to create a directly deployable and optimized Next.js build fol
 Deployment (especially on Azure) can take a long time when using Next.js because of unnecessary files. This script filters only the necessary ones and creates a `build/` directory to deploy the project.
 
 # Usage
+First of all, place `build.js` and `buildParams.json` into the root of your project.
+
 Every project has its own dependencies. So, the file `buildParams.json` should be filled with the dependent files, folders, and modules. The module versions will be the same as the base `package.json`.
 
 Example parameters:
@@ -35,7 +37,7 @@ Example parameters:
 }
 ```
 
-Please note that even if the JSON file is empty, some values are default and added programmatically even if they are not provided. The `start` script can be overridden if needed.
+Please note that even if the JSON attributes are empty, some values are default and added programmatically even if they are not provided. The `start` script can be overridden if needed.
 
 Default values:
 ```json
