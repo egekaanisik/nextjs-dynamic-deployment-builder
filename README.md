@@ -1,4 +1,4 @@
-# nextjs-dynamic-builder
+# nextjs-dynamic-deployment-builder
 A Node.js script to create a directly deployable and optimized Next.js build folder.
 
 # Why?
