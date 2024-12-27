@@ -123,6 +123,18 @@ function moveNextAndCopyFilesAndFolders() {
                 console.error(`Error moving .next folder: ${err.message}`);
             } else {
                 console.log('.next folder moved to build/.next.');
+
+                // Remove the .next/cache folder AFTER the build
+                const cacheFolderPath = path.join(newNextFolderPath, 'cache');
+                if (fs.existsSync(cacheFolderPath)) {
+                    fs.rm(cacheFolderPath, { recursive: true, force: true }, (cacheErr) => {
+                        if (cacheErr) {
+                            console.error(`Error deleting .next/cache folder: ${cacheErr.message}`);
+                        } else {
+                            console.log('.next/cache folder deleted from build/.next.');
+                        }
+                    });
+                }
             }
         });
     }
